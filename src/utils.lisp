@@ -1,6 +1,7 @@
 (in-package #:parenscript)
 
-(let ((cache (make-hash-table :test 'equal)))
+(let #+sbcl((cache (make-hash-table :test 'equal :synchronized t)))
+     #-sbcl((cache (make-hash-table :test 'equal)))
   (defun encode-js-identifier (identifier)
     "Given a string, produces to a valid JavaScript identifier by
 following transformation heuristics case conversion. For example,
